@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8. Sınıf Fen Bilimleri - LGS Test Çözüm Platformu (Giriş Gerekli)</title>
+    <title>LGS Fen Test Merkezi - Acil Giriş</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS Kodları (Öncekiyle Aynı) */
+        /* CSS Kodu (Aynı Kaldı) */
         :root {
             --primary-color: #dc3545;
-            --secondary-color: #007bff;
-            --bg-light: #fff0f0;
+            --bg-light: #f7f7f7;
             --text-dark: #333;
-            --form-bg: #f8f9fa;
+            --form-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.15);
         }
 
         body {
@@ -29,69 +29,82 @@
         .header {
             background-color: var(--primary-color);
             color: white;
-            padding: 35px 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 40px 20px;
+            box-shadow: 0 6px 15px var(--shadow-color);
         }
 
         .header h1 {
             margin: 0;
-            font-size: 2.8em;
+            font-size: 2.5em;
             font-weight: 700;
         }
 
         .header p {
             margin-top: 10px;
-            font-size: 1.2em;
+            font-size: 1.1em;
             opacity: 0.9;
         }
         
         .auth-container {
-            max-width: 900px;
-            margin: 40px auto;
-            display: flex;
-            justify-content: space-between;
-            gap: 30px;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 0 20px;
         }
 
         .auth-box {
             background-color: var(--form-bg);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            flex: 1;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px var(--shadow-color);
         }
         
         .auth-box h3 {
-            color: var(--secondary-color);
-            border-bottom: 2px solid #ccc;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #eee;
             padding-bottom: 10px;
-            margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             text-align: left;
         }
 
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
         .form-group input {
-            width: 95%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            width: 100%;
+            padding: 12px 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
         }
 
         .auth-button {
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
+            padding: 15px;
+            margin-top: 15px;
             background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1.1em;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.1s;
         }
 
         .auth-button:hover {
@@ -105,7 +118,7 @@
              justify-content: center;
              color: white;
              font-weight: 600;
-             margin-bottom: 20px !important; 
+             margin-top: 25px !important; 
         }
         .google-button:hover {
              background-color: #3367d6 !important;
@@ -119,17 +132,14 @@
 
         .alert {
             margin-top: 20px;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 8px;
             font-weight: 600;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
         }
         .alert-error {
             background-color: #f8d7da;
             color: #721c24;
+            border: 1px solid #f5c6cb;
         }
         
         .main-content {
@@ -139,10 +149,21 @@
             border-top: 1px dashed #ccc;
             display: none; 
         }
+        
+        /* Çıkış Butonu Stili */
+        .logout-button {
+            background-color: #6c757d !important;
+            max-width: 300px;
+            margin: 20px auto 30px auto !important;
+            display: block;
+        }
+        .logout-button:hover {
+            background-color: #5a6268 !important;
+        }
 
         .unit-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
@@ -170,15 +191,17 @@
             font-weight: 600;
         }
 
-        .unit-card.disabled {
-            opacity: 0.5;
-            filter: grayscale(100%);
-            border-left: 5px solid #6c757d;
+        @media (max-width: 768px) {
+            .unit-grid {
+                grid-template-columns: 1fr;
+            }
         }
-        .unit-card.disabled .unit-link {
-            background-color: #6c757d;
-            cursor: not-allowed;
-            pointer-events: none;
+        
+        /* Müzik Kontrolcüsü için Stil (İsteğe bağlı, gizlemek için display: none; kullanın) */
+        #music-player {
+            width: 100%;
+            max-width: 300px;
+            margin: 15px auto;
         }
 
     </style>
@@ -186,55 +209,43 @@
 </head>
 <body>
 
+    <audio id="music-player" controls loop>
+        <source src="arka_plan_muzik.mp3" type="audio/mpeg">
+        Tarayıcınız audio etiketini desteklemiyor.
+    </audio>
+
     <div class="header">
-        <h1>🥇 8. Sınıf Fen Bilimleri LGS Test Merkezi 🥇</h1>
-        <p>Giriş yapınız. Kayıt olan her kullanıcı otomatik olarak eklenir.</p>
+        <h1>LGS Fen Test Merkezi</h1>
+        <p>Acil Giriş Sayfası. Şifrenizi veya Google hesabınızı kullanarak giriş yapın.</p>
     </div>
 
-    <div class="auth-container">
+    <div class="auth-container" id="auth-container">
         
-        <div class="auth-box" id="login-container-box">
-            <h3>Öğrenci Girişi</h3>
-
-            <button type="button" class="auth-button google-button" id="google-login-button">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDYuMzY5OTdWMTAuMTg3NUgxNi43MDhDMTEuNjg1IDE0LjQzNzUgMTIuMTg3NSA2LjM2OTk3IDEyIDYuMzY5OTdaIiBmaWxsPSIjRUE0MzM1Ii8+CjxwYXRoIGQ9Ik0xMiAxMy44MTI1QzE2Ljc1IDEzLjgxMjUgMTkuNjI1IDEwLjkzNzUgMTkuNjI1IDcuOTQ3OTdIMTcuMDYyNEMxOC40Mzc1IDkuOTc5NDcgMTYuODczNSAxMy4xMjUgMTIgMTMuMTI1VjEzLjgxMjVaIiBmaWxsPSIjNEI5M0RCIi8+CjxwYXRoIGQ9Ik00LjM3NSA4LjMyMjM2VjExLjgxMjVIMTJWMTIuNUw1LjcwODMzIDguMzIyMzZINC4zNzVaIiBmaWxsPSIjRkFGRjNGIi8+CjxwYXRoIGQ9Ik00LjM3NSA4LjMyMjM2VjExLjgxMjVINy44MTI1VjYuMzk0MzdDNy44MTI1IDYuMzk0MzdINy4xNDU4M0M2LjQ3OTQ3IDYuMzk0MzdgIiBmaWxsPSJOT05FIi8+CjxwYXRoIGQ9Ik0xMiAxOC4wNjI1QzcuMTI1IDE4LjA2MjUgNC41MTgwOSAxNi4wMzU2IDQuMzMxMDkgMTMuODA5VjExLjgxMjVINy40NjIyMUM4LjI0MjgxIDE1LjAxMzIgMTEuNTIzIDE1LjA0MTcgMTIgMTUuMDQxN0wxMiAxOC4wNjI1WiIgZmlsbD0iIzM0QTg1MyIvPgo8cGF0aCBkPSJNMTIuMDQxNyA2LjM2OTk3VjEwLjE4NzVIOC43MDgzM0wxMi4wNDI2IDYuMzk0MzdIMTJWNi4zNjk5N0wxMi4wNDEgNi4zNjk5N1oiIGZpbGw9IiNGQkJDMDQiLz4KPC9zdmc+Cg==" alt="Google logo"/>
-                Google ile Giriş Yap
-            </button>
+        <div class="auth-box">
+            <h3>Acil Giriş</h3>
             
-            <form id="login-form">
-                <p style="text-align: center; margin: 10px 0; font-size: 0.9em; color: #666;">veya E-posta/Şifre Kullanın:</p>
+            <form id="emergency-login-form">
                 <div class="form-group">
-                    <label for="login_email">E-posta:</label>
-                    <input type="email" id="login_email" name="login_email" required>
-                </div>
-                <div class="form-group">
-                    <label for="login_password">Şifre:</label>
-                    <input type="password" id="login_password" name="login_password" required>
+                    <label for="password_input">Şifre:</label>
+                    <input type="password" id="password_input" name="password_input" placeholder="Şifrenizi girin..." required>
                 </div>
                 <button type="submit" class="auth-button">Giriş Yap</button>
             </form>
             <div id="login-message" class="alert-error" style="display: none;"></div>
-        </div>
 
-        <div class="auth-box">
-            <h3 style="color: #28a745;">Yeni Üyelik Kaydı</h3>
-            <p style="font-size: 0.9em; color: #555;">Kayıt olduğunuz anda üyeliğiniz otomatik olarak aktif olacaktır.</p>
+            <p style="text-align: center; margin: 20px 0; font-weight: 600; color: #555;">VEYA</p>
+
+            <button type="button" class="auth-button google-button" id="google-login-button">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDYuMzY5OTdWMTAuMTg3NUgxNi43MDhDMTEuNjg1IDE0LjQzNzUgMTIuMTg3NSA2LjM2OTk3IDEyIDYuMzY5OTdaIiBmaWxsPSIjRUE0MzM1Ii8+CjxwYXRoIGQ9Ik0xMiAxMy44MTI1QzE2Ljc1IDEzLjgxMjUgMTkuNjI1IDEwLjkzNzUgMTkuNjI1IDcuOTQ3OTdIMTcuMDYyNEMxOC40Mzc1IDkuOTc5NDcgMTYuODczNSAxMy4xMjUgMTIgMTMuMTI1VjEzLjgxMjVaIiBmaWxsPSIjNEI5M0RCIi8+CjxwYXRoIGQ9Ik00LjM3NSA4LjMyMjM2VjExLjgxMjVIMTJWMTIuNUw1LjcwODMzIDguMzIyMzZINC4zNzVaIiBmaWxsPSIjRkFGRjNGIi8+CjxwYXRoIGQ9Ik00LjM3NSA4LjMyMjM2VjExLjgxMjVINy44MTI1VjYuMzk0MzdDNy44MTI1IDYuMzk0MzdINy4xNDU4M0M2LjQ3OTQ3IDYuMzk0MzdgIiBmaWxsPSJOT05FIi8+CjxwYXRoIGQ9Ik0xMiAxOC4wNjI1QzcuMTI1IDE4LjA2MjUgNC41MTgwOSAxNi4wMzU2IDQuMzMxMDkgMTMuODA5VjExLjgxMjVINy40NjIyMUM4LjI0MjgxIDE1LjAxMzIgMTEuNTIzIDE1LjA0MTcgMTIgMTUuMDQxN0wxMiAxOC4wNjI1WiIgZmlsbD0iIzM0QTg1MyIvPgo8cGF0aCBkPSJNMTIuMDQxNyA2LjM2OTk3VjEwLjE4NzVIOC43MDgzM0wxMi4wNDI2IDYuMzk0MzdIMTJWNi4zNjk5N0wxMi4wNDEgNi4zNjk5N1oiIGZpbGw9IiNGQkJDMDQiLz4KPC9zdmc+Cg==" alt="Google logo"/>
+                Google Hesabı ile Giriş Yap
+            </button>
             
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="reg_email">E-posta Adresi:</label>
-                    <input type="email" id="reg_email" name="reg_email" required>
-                </div>
-                <div class="form-group">
-                    <label for="reg_password">Şifre Belirleyin (Min 6 Karakter):</label>
-                    <input type="password" id="reg_password" name="reg_password" required>
-                </div>
-                <button type="submit" class="auth-button" style="background-color: #28a745;">Kayıt Ol</button>
-            </form>
-            <div id="register-message" class="alert-success" style="display: none;"></div>
         </div>
     </div>
     <div class="main-content" id="test-listesi">
+        
+        <button id="logout-button" class="auth-button logout-button">Hesaptan Çıkış Yap</button>
+
         <h2>Ünite Testleri</h2>
         <div class="unit-grid">
             
@@ -309,10 +320,9 @@
     <script type="module">
         // 1. GEREKLİ MODÜLLERİ İÇE AKTAR
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-        // getAnalytics'i silebiliriz, kullanmıyoruz.
+        import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
-        // 2. SİZİN FIREBASE AYARLARINIZ (Gönderdiğiniz son koddaki v12.6.0 uyumlu hali)
+        // 2. SİZİN FIREBASE AYARLARINIZ
         const firebaseConfig = {
             apiKey: "AIzaSyAGP-_MLuC1hV0ioGvM4Iy-X1Of9441ieU",
             authDomain: "lgs-fen-sitesi.firebaseapp.com",
@@ -323,103 +333,104 @@
             measurementId: "G-T80S936P3C"
         };
 
-        // Firebase uygulamasını başlatma ve Auth servisini alma
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app); // Modüler yapıda Auth servisi böyle alınır.
+        const auth = getAuth(app);
         
-        // 3. HTML Elementlerini Tanımlama
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
+        // 3. Sabit Şifre Tanımlaması
+        const FIXED_PASSWORD = "3_4";
+
+        // 4. HTML Elementlerini Tanımlama
+        const emergencyLoginForm = document.getElementById('emergency-login-form');
         const googleLoginButton = document.getElementById('google-login-button');
+        const logoutButton = document.getElementById('logout-button');
         const loginMessage = document.getElementById('login-message');
-        const registerMessage = document.getElementById('register-message');
-        const authContainer = document.querySelector('.auth-container'); 
+        const authContainer = document.getElementById('auth-container'); 
         const testListesi = document.getElementById('test-listesi');
 
-        // Kullanıcı girişini/çıkışını kontrol eden ana fonksiyon
+        // 5. Acil Giriş Kontrol Fonksiyonu (Sabit Şifre Başarılı Olduğunda Çalışır)
+        function setLocalSession(isLoggedIn) {
+            if (isLoggedIn) {
+                authContainer.style.display = 'none';
+                testListesi.style.display = 'block';
+                document.querySelector('.header p').textContent = `Hoş geldiniz! Test çözmeye başlayabilirsiniz.`;
+                localStorage.setItem('isLoggedIn', 'true'); 
+            } else {
+                authContainer.style.display = 'block';
+                testListesi.style.display = 'none';
+                document.querySelector('.header p').textContent = 'Acil Giriş Sayfası. Şifrenizi veya Google hesabınızı kullanarak giriş yapın.';
+                localStorage.removeItem('isLoggedIn');
+            }
+        }
+
+        // 6. Kullanıcı Durum Kontrolü (Sayfa Yüklendiğinde Çalışır)
         function checkAuthState() {
-            onAuthStateChanged(auth, (user) => { // onAuthStateChanged artık getAuth'tan alınan 'auth' objesini kullanır.
+            onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    // Kullanıcı giriş yapmışsa
+                    // Firebase ile Giriş Yapılmışsa
                     authContainer.style.display = 'none';
                     testListesi.style.display = 'block';
                     document.querySelector('.header p').textContent = `Hoş geldiniz, ${user.email}! Test çözmeye başlayabilirsiniz.`;
+                    localStorage.removeItem('isLoggedIn'); // Sabit şifre oturumunu sil
                 } else {
-                    // Kullanıcı giriş yapmamışsa
-                    authContainer.style.display = 'flex';
-                    testListesi.style.display = 'none';
-                    document.querySelector('.header p').textContent = 'Giriş yapınız. Kayıt olan her kullanıcı otomatik olarak eklenir.';
+                    // Firebase ile giriş yapılmamışsa, sabit şifre oturumunu kontrol et
+                    const isLocalLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                    if (isLocalLoggedIn) {
+                        setLocalSession(true);
+                    } else {
+                        setLocalSession(false);
+                    }
                 }
             });
         }
         
-        // Sayfa yüklendiğinde durumu kontrol et
         checkAuthState();
 
-        // 4. Google Giriş İşlemi
-        googleLoginButton.addEventListener('click', function() {
+        // 7. Sabit Şifre Formu Gönderimi
+        emergencyLoginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
             
+            const password = document.getElementById('password_input').value;
             loginMessage.style.display = 'none';
+
+            if (password === FIXED_PASSWORD) {
+                setLocalSession(true);
+                emergencyLoginForm.reset();
+            } else {
+                loginMessage.textContent = "Hata: Giriş şifresi yanlış. Lütfen tekrar deneyin.";
+                loginMessage.style.display = 'block';
+            }
+        });
+
+        // 8. Google Giriş İşlemi
+        googleLoginButton.addEventListener('click', function() {
+            loginMessage.style.display = 'none';
+            const provider = new GoogleAuthProvider();
             
-            const provider = new GoogleAuthProvider(); // GoogleAuthProvider da içe aktarılır.
-            
-            signInWithPopup(auth, provider) // signInWithPopup artık 'auth' objesini ilk parametre olarak alır.
+            signInWithPopup(auth, provider)
                 .then((result) => {
-                    // Giriş başarılı.
+                    // Giriş başarılı. onAuthStateChanged arayüzü güncelleyecektir.
                 })
                 .catch((error) => {
-                    loginMessage.textContent = "Hata: Google ile giriş yapılamadı. Alan adı yetkilendirmesi eksik olabilir.";
+                    loginMessage.textContent = "Hata: Google ile giriş yapılamadı. Bağlantı veya yetkilendirme sorunlarını kontrol edin.";
                     loginMessage.style.display = 'block';
                     console.error("Google Giriş Hatası:", error.message);
                 });
         });
-
-        // 5. E-posta/Şifre Giriş Formu Gönderimi
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('login_email').value;
-            const password = document.getElementById('login_password').value;
-            
-            loginMessage.style.display = 'none';
-
-            signInWithEmailAndPassword(auth, email, password) // signInWithEmailAndPassword artık 'auth' objesini ilk parametre olarak alır.
-                .then((userCredential) => {
-                    // Giriş başarılı.
-                })
-                .catch((error) => {
-                    loginMessage.textContent = "Hata: Giriş bilgileri yanlış veya kullanıcı bulunamadı.";
-                    loginMessage.style.display = 'block';
+        
+        // 9. Çıkış Yap İşlemi (Hem Firebase hem de Sabit Şifre oturumunu sonlandırır)
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function() {
+                // 1. Firebase Çıkışı (Google için)
+                signOut(auth).then(() => {
+                    // 2. Sabit Şifre Çıkışı (Local Session silinir)
+                    setLocalSession(false); 
+                    console.log("Çıkış başarılı.");
+                }).catch((error) => {
+                    console.error("Çıkış Hatası:", error);
+                    alert("Çıkış yapılırken bir hata oluştu.");
                 });
-        });
-
-        // 6. E-posta/Şifre Kayıt Formu Gönderimi
-        registerForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('reg_email').value;
-            const password = document.getElementById('reg_password').value;
-
-            registerMessage.style.display = 'none';
-
-            createUserWithEmailAndPassword(auth, email, password) // createUserWithEmailAndPassword artık 'auth' objesini ilk parametre olarak alır.
-                .then((userCredential) => {
-                    registerMessage.textContent = "Kayıt başarılı! Otomatik giriş yapıldı. Testlere yönlendiriliyorsunuz...";
-                    registerMessage.style.display = 'block';
-                    registerForm.reset(); 
-                })
-                .catch((error) => {
-                    let errorMessage = "Hata: Kayıt başarısız. Lütfen bilgileri kontrol edin.";
-                    if (error.code === 'auth/email-already-in-use') {
-                        errorMessage = "Hata: Bu e-posta adresi zaten kullanılıyor. Lütfen giriş yapmayı deneyin veya farklı bir e-posta kullanın.";
-                    } else if (error.code === 'auth/weak-password') {
-                        errorMessage = "Hata: Şifre çok zayıf. Lütfen en az 6 karakterli bir şifre belirleyin.";
-                    }
-                    
-                    registerMessage.textContent = errorMessage;
-                    registerMessage.style.display = 'block';
-                });
-        });
+            });
+        }
         
     </script>
 

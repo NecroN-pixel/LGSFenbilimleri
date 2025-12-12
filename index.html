@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8. Sınıf Fen Bilimleri - LGS Test Çözüm Platformu</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #dc3545; /* Kırmızı (Test/Sınav vurgusu) */
+            --secondary-color: #007bff; /* Mavi */
+            --bg-light: #fff0f0; /* Açık kırmızı/pembe tonlu arka plan */
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 35px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            font-weight: 700;
+        }
+
+        .header p {
+            margin-top: 10px;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .unit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Ünite Kartları Stili */
+        .unit-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .unit-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .unit-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            font-size: 1.6em;
+            border-bottom: 3px dashed #e0e0e0; /* Kesikli çizgi vurgusu */
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .unit-card p {
+            font-size: 1em;
+            color: #555;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .unit-link {
+            display: block;
+            margin-top: 20px;
+            padding: 14px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .unit-link:hover {
+            background-color: #c82333; /* Daha koyu kırmızı */
+        }
+
+        /* Pasif Ünite Stili */
+        .unit-card.disabled {
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+        .unit-card.disabled .unit-link {
+            background-color: #6c757d; /* Gri */
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .unit-card.disabled .unit-link::after {
+            content: " - Çok Yakında!";
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🥇 8. Sınıf Fen Bilimleri LGS Test Merkezi 🥇</h1>
+        <p>LGS'ye yönelik tüm ünitelerin seçme, güncel ve zorlayıcı testlerini çözerek başarınızı garantiye alın!</p>
+    </div>
+
+    <div class="main-content">
+        <h2>Ünite Testleri</h2>
+        <div class="unit-grid">
+            
+            <div class="unit-card">
+                <div>
+                    <h3>1. Ünite Testi: Mevsimler ve İklim</h3>
+                    <p>Dünya'nın hareketleri, eksen eğikliği ve hava olayları ile ilgili LGS standartlarında hazırlanmış sorularla bilginizi ölçün.</p>
+                </div>
+                <a 
+                    href="https://necron-pixel.github.io/LGSFenbilimleri-1/" 
+                    class="unit-link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                >
+                    Testi Çözmeye Başla 🚀
+                </a>
+            </div>
+
+            <div class="unit-card disabled">
+                <div>
+                    <h3>2. Ünite Testi: DNA ve Genetik Kod</h3>
+                    <p>Kalıtım, çaprazlamalar ve genetik mühendisliği konularındaki bilgilerinizi deneyecek özgün sorular.</p>
+                </div>
+                <a 
+                    href="#" 
+                    class="unit-link"
+                >
+                    Testi Çöz
+                </a>
+            </div>
+
+            <div class="unit-card disabled">
+                <div>
+                    <h3>3. Ünite Testi: Basınç</h3>
+                    <p>Katı, sıvı ve gaz basıncı hesaplamaları, deney yorumlama ve grafik okuma soruları.</p>
+                </div>
+                <a 
+                    href="#" 
+                    class="unit-link"
+                >
+                    Testi Çöz
+                </a>
+            </div>
+            
+        </div>
+        
+        <p style="margin-top: 50px; font-size: 1em; color: #7f8c8d;">Diğer ünitelerdeki testler (Madde ve Endüstri, Enerji Dönüşümleri vb.) kısa süre içinde sisteme eklenecektir!</p>
+
+    </div>
+
+</body>
+</html>

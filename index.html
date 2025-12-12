@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8. Sınıf Fen Bilimleri - LGS Test Çözüm Platformu</title>
+    <title>8. Sınıf Fen Bilimleri - LGS Test Çözüm Platformu (Giriş Gerekli)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-color: #dc3545; /* Kırmızı (Test/Sınav vurgusu) */
+            --primary-color: #dc3545; /* Kırmızı */
             --secondary-color: #007bff; /* Mavi */
-            --bg-light: #fff0f0; /* Açık kırmızı/pembe tonlu arka plan */
+            --bg-light: #fff0f0;
             --text-dark: #333;
+            --form-bg: #f8f9fa;
         }
 
         body {
@@ -42,11 +43,85 @@
             font-size: 1.2em;
             opacity: 0.9;
         }
+        
+        /* Giriş ve Kayıt Alanları için düzen */
+        .auth-container {
+            max-width: 900px;
+            margin: 40px auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
 
+        .auth-box {
+            background-color: var(--form-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        
+        .auth-box h3 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .auth-button:hover {
+            background-color: #c82333;
+        }
+
+        .alert {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Ünite Listesi Alanı */
         .main-content {
             padding: 40px 20px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 40px auto;
+            border-top: 1px dashed #ccc;
+            display: none; 
         }
 
         .main-content h2 {
@@ -61,7 +136,6 @@
             gap: 30px;
         }
 
-        /* Ünite Kartları Stili */
         .unit-card {
             background-color: white;
             border-radius: 15px;
@@ -72,6 +146,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            border-left: 5px solid var(--primary-color);
         }
 
         .unit-card:hover {
@@ -83,7 +158,7 @@
             color: var(--secondary-color);
             margin-top: 0;
             font-size: 1.6em;
-            border-bottom: 3px dashed #e0e0e0; /* Kesikli çizgi vurgusu */
+            border-bottom: 3px dashed #e0e0e0;
             padding-bottom: 10px;
             margin-bottom: 15px;
         }
@@ -110,16 +185,16 @@
         }
 
         .unit-link:hover {
-            background-color: #c82333; /* Daha koyu kırmızı */
+            background-color: #c82333;
         }
 
-        /* Pasif Ünite Stili */
         .unit-card.disabled {
             opacity: 0.5;
             filter: grayscale(100%);
+            border-left: 5px solid #6c757d;
         }
         .unit-card.disabled .unit-link {
-            background-color: #6c757d; /* Gri */
+            background-color: #6c757d;
             cursor: not-allowed;
             pointer-events: none;
         }
@@ -133,17 +208,56 @@
 
     <div class="header">
         <h1>🥇 8. Sınıf Fen Bilimleri LGS Test Merkezi 🥇</h1>
-        <p>LGS'ye yönelik tüm ünitelerin seçme, güncel ve zorlayıcı testlerini çözerek başarınızı garantiye alın!</p>
+        <p>Devam etmek için lütfen hesabınızla giriş yapınız. Yeni üye olmak için Kayıt Ol formunu doldurunuz.</p>
     </div>
 
-    <div class="main-content">
+    <div class="auth-container">
+        
+        <div class="auth-box" id="login-container-box">
+            <h3>Öğrenci Girişi</h3>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Kullanıcı Adı:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Şifre:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="auth-button">Giriş Yap</button>
+            </form>
+            <div id="login-message" class="alert-error" style="display: none;"></div>
+        </div>
+
+        <div class="auth-box">
+            <h3 style="color: #28a745;">Yeni Üyelik İsteği</h3>
+            <p style="font-size: 0.9em; color: #555;">Kayıt isteğiniz bize ulaşacak ve üyeliğiniz admin tarafından onaylanacaktır.</p>
+            
+            <form action="https://formspree.io/f/necron.offical@gmail.com" method="POST">
+                <div class="form-group">
+                    <label for="reg_name">Adınız Soyadınız:</label>
+                    <input type="text" id="reg_name" name="Ad_Soyad" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg_username">İstenen Kullanıcı Adı:</label>
+                    <input type="text" id="reg_username" name="Kullanici_Adi" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg_email">E-posta Adresi:</label>
+                    <input type="email" id="reg_email" name="Email_Adresi" required> </div>
+                <button type="submit" class="auth-button" style="background-color: #28a745;">Kayıt İsteği Gönder</button>
+            </form>
+            <p style="margin-top: 15px; font-size: 0.8em; color: var(--primary-color);">Admin, şifrenizi e-posta yoluyla size iletecektir.</p>
+        </div>
+    </div>
+    <div class="main-content" id="test-listesi">
         <h2>Ünite Testleri</h2>
         <div class="unit-grid">
             
             <div class="unit-card">
                 <div>
                     <h3>1. Ünite Testi: Mevsimler ve İklim</h3>
-                    <p>Dünya'nın hareketleri, eksen eğikliği ve hava olayları ile ilgili LGS standartlarında hazırlanmış sorularla bilginizi ölçün.</p>
+                    <p>Dünya'nın hareketleri, eksen eğikliği ve hava olayları ile ilgili LGS standartlarında hazırlanmış sorular.</p>
                 </div>
                 <a 
                     href="https://necron-pixel.github.io/LGSFenbilimleri-1/" 
@@ -155,10 +269,40 @@
                 </a>
             </div>
 
-            <div class="unit-card disabled">
+            <div class="unit-card">
                 <div>
                     <h3>2. Ünite Testi: DNA ve Genetik Kod</h3>
-                    <p>Kalıtım, çaprazlamalar ve genetik mühendisliği konularındaki bilgilerinizi deneyecek özgün sorular.</p>
+                    <p>Kalıtım, çaprazlamalar, biyoteknoloji ve genetik mühendisliği konularındaki özgün sorular.</p>
+                </div>
+                <a 
+                    href="https://necron-pixel.github.io/LGSFenbilimleri-2/" 
+                    class="unit-link"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                >
+                    Testi Çözmeye Başla 🧬
+                </a>
+            </div>
+
+            <div class="unit-card">
+                <div>
+                    <h3>3. Ünite Testi: Basınç</h3>
+                    <p>Katı, sıvı ve gaz basıncı hesaplamaları, deney yorumlama ve grafik okuma soruları.</p>
+                </div>
+                <a 
+                    href="https://necron-pixel.github.io/LGSFenbilimleri-3/" 
+                    class="unit-link"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                >
+                    Testi Çözmeye Başla 🧪
+                </a>
+            </div>
+            
+            <div class="unit-card disabled">
+                <div>
+                    <h3>4. Ünite Testi: Madde ve Endüstri</h3>
+                    <p>Periyodik sistem, kimyasal tepkimeler, asitler ve bazlar ile ilgili LGS'ye uygun test soruları.</p>
                 </div>
                 <a 
                     href="#" 
@@ -167,11 +311,37 @@
                     Testi Çöz
                 </a>
             </div>
-
+            
             <div class="unit-card disabled">
                 <div>
-                    <h3>3. Ünite Testi: Basınç</h3>
-                    <p>Katı, sıvı ve gaz basıncı hesaplamaları, deney yorumlama ve grafik okuma soruları.</p>
+                    <h3>5. Ünite Testi: Basit Makineler</h3>
+                    <p>Basit makineler, kaldıraçlar, makaralar, eğik düzlem ve verimlilik hesaplamaları.</p>
+                </div>
+                <a 
+                    href="#" 
+                    class="unit-link"
+                >
+                    Testi Çöz
+                </a>
+            </div>
+            
+            <div class="unit-card disabled">
+                <div>
+                    <h3>6. Ünite Testi: Enerji Dönüşümleri</h3>
+                    <p>Besin zinciri, enerji akışı, fotosentez, solunum ve madde döngüleri konuları.</p>
+                </div>
+                <a 
+                    href="#" 
+                    class="unit-link"
+                >
+                    Testi Çöz
+                </a>
+            </div>
+            
+            <div class="unit-card disabled">
+                <div>
+                    <h3>7. Ünite Testi: Elektrik Yükleri</h3>
+                    <p>Elektrik yükleri, elektriklenme çeşitleri, elektrik akımı ve devrelerle ilgili test soruları.</p>
                 </div>
                 <a 
                     href="#" 
@@ -183,9 +353,45 @@
             
         </div>
         
-        <p style="margin-top: 50px; font-size: 1em; color: #7f8c8d;">Diğer ünitelerdeki testler (Madde ve Endüstri, Enerji Dönüşümleri vb.) kısa süre içinde sisteme eklenecektir!</p>
+        <p style="margin-top: 50px; font-size: 1em; color: #7f8c8d;">Aktif üniteler (1, 2, 3) kullanıma açıktır.</p>
 
     </div>
+
+    <script>
+        // Kayıtlı kullanıcılar (manuel olarak güncelleyeceğiniz kısım)
+        const users = {
+            "İsmail": "Yunusemre",
+            "1 aylık test hesap": "sınırlıtest"
+            // Yeni kullanıcılar buraya eklenecektir.
+        };
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+            const messageElement = document.getElementById('login-message');
+            const authContainer = document.querySelector('.auth-container'); 
+            const testListesi = document.getElementById('test-listesi');
+
+            if (users[usernameInput] === passwordInput) {
+                // Giriş Başarılı
+                authContainer.style.display = 'none'; // Giriş/Kayıt formlarını gizle
+                testListesi.style.display = 'block'; // Test listesini göster
+                
+                document.querySelector('.header p').textContent = `Hoş geldiniz, ${usernameInput}! Test çözmeye başlayabilirsiniz.`;
+
+            } else {
+                // Giriş Başarısız
+                messageElement.textContent = "Hata: Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyin.";
+                messageElement.style.display = 'block';
+                
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
 
 </body>
 </html>

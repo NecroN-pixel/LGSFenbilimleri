@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS Kodları */
+        /* CSS Kodları (Öncekiyle Aynı) */
         :root {
             --primary-color: #dc3545;
             --secondary-color: #007bff;
@@ -73,12 +73,6 @@
             text-align: left;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
         .form-group input {
             width: 95%;
             padding: 10px;
@@ -111,7 +105,7 @@
              justify-content: center;
              color: white;
              font-weight: 600;
-             margin-bottom: 20px !important; /* E-posta/Şifre alanından ayırmak için */
+             margin-bottom: 20px !important; 
         }
         .google-button:hover {
              background-color: #3367d6 !important;
@@ -189,9 +183,6 @@
 
     </style>
     
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-
 </head>
 <body>
 
@@ -315,23 +306,28 @@
         </div>
     </div>
 
-    <script>
-        // 1. ADIM: SİZİN FIREBASE AYARLARINIZ BURAYA YAPIŞTIRILDI (17483.png'den alınmıştır)
+    <script type="module">
+        // 1. GEREKLİ MODÜLLERİ İÇE AKTAR
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+        // getAnalytics'i silebiliriz, kullanmıyoruz.
+
+        // 2. SİZİN FIREBASE AYARLARINIZ (Gönderdiğiniz son koddaki v12.6.0 uyumlu hali)
         const firebaseConfig = {
-            apiKey: "AIzaSyADp_NiuClNdGvXMty-X1OR2W4liEu",
+            apiKey: "AIzaSyAGP-_MLuC1hV0ioGvM4Iy-X1Of9441ieU",
             authDomain: "lgs-fen-sitesi.firebaseapp.com",
             projectId: "lgs-fen-sitesi",
-            storageBucket: "lgs-fen-sitesi.appspot.com",
-            messagingSenderId: "46325450224",
-            appId: "1:46325450224:web:e6d6e7f80f8514414d35d5",
-            measurementId: "G-R9Q3G5K8C"
+            storageBucket: "lgs-fen-sitesi.firebasestorage.app",
+            messagingSenderId: "46352540224",
+            appId: "1:46352540224:web:6dbe7f8fdf8514414d35a5",
+            measurementId: "G-T80S936P3C"
         };
 
-        // Firebase uygulamasını başlatma ve servisleri tanımlama
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        // Firebase uygulamasını başlatma ve Auth servisini alma
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app); // Modüler yapıda Auth servisi böyle alınır.
         
-        // Form elementlerini tanımlama
+        // 3. HTML Elementlerini Tanımlama
         const loginForm = document.getElementById('login-form');
         const registerForm = document.getElementById('register-form');
         const googleLoginButton = document.getElementById('google-login-button');
@@ -342,7 +338,7 @@
 
         // Kullanıcı girişini/çıkışını kontrol eden ana fonksiyon
         function checkAuthState() {
-            auth.onAuthStateChanged(user => {
+            onAuthStateChanged(auth, (user) => { // onAuthStateChanged artık getAuth'tan alınan 'auth' objesini kullanır.
                 if (user) {
                     // Kullanıcı giriş yapmışsa
                     authContainer.style.display = 'none';
@@ -360,27 +356,25 @@
         // Sayfa yüklendiğinde durumu kontrol et
         checkAuthState();
 
-        // 2. Google Giriş İşlemi
+        // 4. Google Giriş İşlemi
         googleLoginButton.addEventListener('click', function() {
             
             loginMessage.style.display = 'none';
             
-            const provider = new firebase.auth.GoogleAuthProvider();
+            const provider = new GoogleAuthProvider(); // GoogleAuthProvider da içe aktarılır.
             
-            auth.signInWithPopup(provider)
+            signInWithPopup(auth, provider) // signInWithPopup artık 'auth' objesini ilk parametre olarak alır.
                 .then((result) => {
-                    // Giriş başarılı. authStateChanged arayüzü güncelleyecektir.
+                    // Giriş başarılı.
                 })
                 .catch((error) => {
-                    // Giriş başarısız
-                    loginMessage.textContent = "Hata: Google ile giriş yapılamadı. Lütfen Firebase Console'da Google ayarlarını tamamladığınızdan emin olun.";
+                    loginMessage.textContent = "Hata: Google ile giriş yapılamadı. Alan adı yetkilendirmesi eksik olabilir.";
                     loginMessage.style.display = 'block';
-                    // Konsolda detaylı hata gösterimi
-                    console.error("Google Giriş Hatası:", error);
+                    console.error("Google Giriş Hatası:", error.message);
                 });
         });
 
-        // 3. E-posta/Şifre Giriş Formu Gönderimi
+        // 5. E-posta/Şifre Giriş Formu Gönderimi
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -389,18 +383,17 @@
             
             loginMessage.style.display = 'none';
 
-            auth.signInWithEmailAndPassword(email, password)
+            signInWithEmailAndPassword(auth, email, password) // signInWithEmailAndPassword artık 'auth' objesini ilk parametre olarak alır.
                 .then((userCredential) => {
                     // Giriş başarılı.
                 })
                 .catch((error) => {
-                    // Giriş başarısız
                     loginMessage.textContent = "Hata: Giriş bilgileri yanlış veya kullanıcı bulunamadı.";
                     loginMessage.style.display = 'block';
                 });
         });
 
-        // 4. E-posta/Şifre Kayıt Formu Gönderimi
+        // 6. E-posta/Şifre Kayıt Formu Gönderimi
         registerForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -409,15 +402,12 @@
 
             registerMessage.style.display = 'none';
 
-            auth.createUserWithEmailAndPassword(email, password)
+            createUserWithEmailAndPassword(auth, email, password) // createUserWithEmailAndPassword artık 'auth' objesini ilk parametre olarak alır.
                 .then((userCredential) => {
-                    // Kayıt başarılı. Kullanıcı otomatik olarak giriş yapar.
                     registerMessage.textContent = "Kayıt başarılı! Otomatik giriş yapıldı. Testlere yönlendiriliyorsunuz...";
                     registerMessage.style.display = 'block';
-                    
                     registerForm.reset(); 
                 })
-                // Hata yakalama mekanizması
                 .catch((error) => {
                     let errorMessage = "Hata: Kayıt başarısız. Lütfen bilgileri kontrol edin.";
                     if (error.code === 'auth/email-already-in-use') {

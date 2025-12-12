@@ -8,9 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* CSS Kodları */
         :root {
-            --primary-color: #dc3545; /* Kırmızı */
-            --secondary-color: #007bff; /* Mavi */
+            --primary-color: #dc3545;
+            --secondary-color: #007bff;
             --bg-light: #fff0f0;
             --text-dark: #333;
             --form-bg: #f8f9fa;
@@ -44,7 +45,6 @@
             opacity: 0.9;
         }
         
-        /* Giriş ve Kayıt Alanları için düzen */
         .auth-container {
             max-width: 900px;
             margin: 40px auto;
@@ -103,6 +103,25 @@
         .auth-button:hover {
             background-color: #c82333;
         }
+        
+        .google-button {
+             background-color: #4285F4 !important;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             color: white;
+             font-weight: 600;
+             margin-bottom: 20px !important; /* E-posta/Şifre alanından ayırmak için */
+        }
+        .google-button:hover {
+             background-color: #3367d6 !important;
+        }
+        .google-button img {
+             width: 20px; 
+             height: 20px; 
+             vertical-align: middle; 
+             margin-right: 10px;
+        }
 
         .alert {
             margin-top: 20px;
@@ -110,24 +129,21 @@
             border-radius: 5px;
             font-weight: 600;
         }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
         .alert-error {
             background-color: #f8d7da;
             color: #721c24;
         }
         
-        /* Ünite Listesi Alanı */
         .main-content {
             padding: 40px 20px;
             max-width: 1200px;
             margin: 40px auto;
             border-top: 1px dashed #ccc;
             display: none; 
-        }
-
-        .main-content h2 {
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            font-size: 2em;
         }
 
         .unit-grid {
@@ -149,27 +165,6 @@
             border-left: 5px solid var(--primary-color);
         }
 
-        .unit-card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .unit-card h3 {
-            color: var(--secondary-color);
-            margin-top: 0;
-            font-size: 1.6em;
-            border-bottom: 3px dashed #e0e0e0;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        .unit-card p {
-            font-size: 1em;
-            color: #555;
-            flex-grow: 1;
-            line-height: 1.6;
-        }
-
         .unit-link {
             display: block;
             margin-top: 20px;
@@ -179,13 +174,6 @@
             text-decoration: none;
             border-radius: 10px;
             font-weight: 600;
-            transition: background-color 0.3s ease;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .unit-link:hover {
-            background-color: #c82333;
         }
 
         .unit-card.disabled {
@@ -198,31 +186,39 @@
             cursor: not-allowed;
             pointer-events: none;
         }
-        .unit-card.disabled .unit-link::after {
-            content: " - Çok Yakında!";
-        }
 
     </style>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+
 </head>
 <body>
 
     <div class="header">
         <h1>🥇 8. Sınıf Fen Bilimleri LGS Test Merkezi 🥇</h1>
-        <p>Devam etmek için lütfen hesabınızla giriş yapınız. Yeni üye olmak için Kayıt Ol formunu doldurunuz.</p>
+        <p>Giriş yapınız. Kayıt olan her kullanıcı otomatik olarak eklenir.</p>
     </div>
 
     <div class="auth-container">
         
         <div class="auth-box" id="login-container-box">
             <h3>Öğrenci Girişi</h3>
+
+            <button type="button" class="auth-button google-button" id="google-login-button">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDYuMzY5OTdWMTAuMTg3NUgxNi43MDhDMTEuNjg1IDE0LjQzNzUgMTIuMTg3NSA2LjM2OTk3IDEyIDYuMzY5OTdaIiBmaWxsPSIjRUE0MzM1Ii8+CjxwYXRoIGQ9Ik0xMiAxMy44MTI1QzE2Ljc1IDEzLjgxMjUgMTkuNjI1IDEwLjkzNzUgMTkuNjI1IDcuOTQ3OTdIMTcuMDYyNEMxOC40Mzc1IDkuOTc5NDcgMTYuODczNSAxMy4xMjUgMTIgMTMuMTI1VjEzLjgxMjVaIiBmaWxsPSIjNEI5M0RCIi8+CjxwYXRoIGQ9Ik00LjM3NSA4LjMyMjM2VjExLjgxMjVIMTJWMTIuNUw1LjcwODMzIDguMzIyMzZINC4zNzVaIiBmaWxsPSIjRkFGRjNGIi8+CjxwYXRoIGQ9Ik00LjM3NSA4LjMyMjM2VjExLjgxMjVINy44MTI1VjYuMzk0MzdDNy44MTI1IDYuMzk0MzdINy4xNDU4M0M2LjQ3OTQ3IDYuMzk0MzdgIiBmaWxsPSJOT05FIi8+CjxwYXRoIGQ9Ik0xMiAxOC4wNjI1QzcuMTI1IDE4LjA2MjUgNC41MTgwOSAxNi4wMzU2IDQuMzMxMDkgMTMuODA5VjExLjgxMjVINy40NjIyMUM4LjI0MjgxIDE1LjAxMzIgMTEuNTIzIDE1LjA0MTcgMTIgMTUuMDQxN0wxMiAxOC4wNjI1WiIgZmlsbD0iIzM0QTg1MyIvPgo8cGF0aCBkPSJNMTIuMDQxNyA2LjM2OTk3VjEwLjE4NzVIOC43MDgzM0wxMi4wNDI2IDYuMzk0MzdIMTJWNi4zNjk5N0wxMi4wNDEgNi4zNjk5N1oiIGZpbGw9IiNGQkJDMDQiLz4KPC9zdmc+Cg==" alt="Google logo"/>
+                Google ile Giriş Yap
+            </button>
+            
             <form id="login-form">
+                <p style="text-align: center; margin: 10px 0; font-size: 0.9em; color: #666;">veya E-posta/Şifre Kullanın:</p>
                 <div class="form-group">
-                    <label for="username">Kullanıcı Adı:</label>
-                    <input type="text" id="username" name="username" required>
+                    <label for="login_email">E-posta:</label>
+                    <input type="email" id="login_email" name="login_email" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Şifre:</label>
-                    <input type="password" id="password" name="password" required>
+                    <label for="login_password">Şifre:</label>
+                    <input type="password" id="login_password" name="login_password" required>
                 </div>
                 <button type="submit" class="auth-button">Giriş Yap</button>
             </form>
@@ -230,24 +226,21 @@
         </div>
 
         <div class="auth-box">
-            <h3 style="color: #28a745;">Yeni Üyelik İsteği</h3>
-            <p style="font-size: 0.9em; color: #555;">Kayıt isteğiniz bize ulaşacak ve üyeliğiniz admin tarafından onaylanacaktır.</p>
+            <h3 style="color: #28a745;">Yeni Üyelik Kaydı</h3>
+            <p style="font-size: 0.9em; color: #555;">Kayıt olduğunuz anda üyeliğiniz otomatik olarak aktif olacaktır.</p>
             
-            <form action="https://formspree.io/f/necron.offical@gmail.com" method="POST">
-                <div class="form-group">
-                    <label for="reg_name">Adınız Soyadınız:</label>
-                    <input type="text" id="reg_name" name="Ad_Soyad" required>
-                </div>
-                <div class="form-group">
-                    <label for="reg_username">İstenen Kullanıcı Adı:</label>
-                    <input type="text" id="reg_username" name="Kullanici_Adi" required>
-                </div>
+            <form id="register-form">
                 <div class="form-group">
                     <label for="reg_email">E-posta Adresi:</label>
-                    <input type="email" id="reg_email" name="Email_Adresi" required> </div>
-                <button type="submit" class="auth-button" style="background-color: #28a745;">Kayıt İsteği Gönder</button>
+                    <input type="email" id="reg_email" name="reg_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg_password">Şifre Belirleyin (Min 6 Karakter):</label>
+                    <input type="password" id="reg_password" name="reg_password" required>
+                </div>
+                <button type="submit" class="auth-button" style="background-color: #28a745;">Kayıt Ol</button>
             </form>
-            <p style="margin-top: 15px; font-size: 0.8em; color: var(--primary-color);">Admin, şifrenizi e-posta yoluyla size iletecektir.</p>
+            <div id="register-message" class="alert-success" style="display: none;"></div>
         </div>
     </div>
     <div class="main-content" id="test-listesi">
@@ -300,97 +293,144 @@
             </div>
             
             <div class="unit-card disabled">
-                <div>
-                    <h3>4. Ünite Testi: Madde ve Endüstri</h3>
-                    <p>Periyodik sistem, kimyasal tepkimeler, asitler ve bazlar ile ilgili LGS'ye uygun test soruları.</p>
-                </div>
-                <a 
-                    href="#" 
-                    class="unit-link"
-                >
-                    Testi Çöz
-                </a>
+                <h3>4. Ünite Testi: Madde ve Endüstri</h3>
+                <a href="#" class="unit-link">Testi Çöz - Çok Yakında!</a>
             </div>
             
             <div class="unit-card disabled">
-                <div>
-                    <h3>5. Ünite Testi: Basit Makineler</h3>
-                    <p>Basit makineler, kaldıraçlar, makaralar, eğik düzlem ve verimlilik hesaplamaları.</p>
-                </div>
-                <a 
-                    href="#" 
-                    class="unit-link"
-                >
-                    Testi Çöz
-                </a>
+                <h3>5. Ünite Testi: Basit Makineler</h3>
+                <a href="#" class="unit-link">Testi Çöz - Çok Yakında!</a>
             </div>
             
             <div class="unit-card disabled">
-                <div>
-                    <h3>6. Ünite Testi: Enerji Dönüşümleri</h3>
-                    <p>Besin zinciri, enerji akışı, fotosentez, solunum ve madde döngüleri konuları.</p>
-                </div>
-                <a 
-                    href="#" 
-                    class="unit-link"
-                >
-                    Testi Çöz
-                </a>
+                <h3>6. Ünite Testi: Enerji Dönüşümleri</h3>
+                <a href="#" class="unit-link">Testi Çöz - Çok Yakında!</a>
             </div>
             
             <div class="unit-card disabled">
-                <div>
-                    <h3>7. Ünite Testi: Elektrik Yükleri</h3>
-                    <p>Elektrik yükleri, elektriklenme çeşitleri, elektrik akımı ve devrelerle ilgili test soruları.</p>
-                </div>
-                <a 
-                    href="#" 
-                    class="unit-link"
-                >
-                    Testi Çöz
-                </a>
+                <h3>7. Ünite Testi: Elektrik Yükleri</h3>
+                <a href="#" class="unit-link">Testi Çöz - Çok Yakında!</a>
             </div>
             
         </div>
-        
-        <p style="margin-top: 50px; font-size: 1em; color: #7f8c8d;">Aktif üniteler (1, 2, 3) kullanıma açıktır.</p>
-
     </div>
 
     <script>
-        // Kayıtlı kullanıcılar (manuel olarak güncelleyeceğiniz kısım)
-        const users = {
-            "İsmail": "Yunusemre",
-            "1 aylık test hesap": "sınırlıtest"
-            // Yeni kullanıcılar buraya eklenecektir.
+        // 1. ADIM: SİZİN FIREBASE AYARLARINIZ BURAYA YAPIŞTIRILDI (17483.png'den alınmıştır)
+        const firebaseConfig = {
+            apiKey: "AIzaSyADp_NiuClNdGvXMty-X1OR2W4liEu",
+            authDomain: "lgs-fen-sitesi.firebaseapp.com",
+            projectId: "lgs-fen-sitesi",
+            storageBucket: "lgs-fen-sitesi.appspot.com",
+            messagingSenderId: "46325450224",
+            appId: "1:46325450224:web:e6d6e7f80f8514414d35d5",
+            measurementId: "G-R9Q3G5K8C"
         };
 
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+        // Firebase uygulamasını başlatma ve servisleri tanımlama
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        
+        // Form elementlerini tanımlama
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const googleLoginButton = document.getElementById('google-login-button');
+        const loginMessage = document.getElementById('login-message');
+        const registerMessage = document.getElementById('register-message');
+        const authContainer = document.querySelector('.auth-container'); 
+        const testListesi = document.getElementById('test-listesi');
 
-            const usernameInput = document.getElementById('username').value;
-            const passwordInput = document.getElementById('password').value;
-            const messageElement = document.getElementById('login-message');
-            const authContainer = document.querySelector('.auth-container'); 
-            const testListesi = document.getElementById('test-listesi');
+        // Kullanıcı girişini/çıkışını kontrol eden ana fonksiyon
+        function checkAuthState() {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    // Kullanıcı giriş yapmışsa
+                    authContainer.style.display = 'none';
+                    testListesi.style.display = 'block';
+                    document.querySelector('.header p').textContent = `Hoş geldiniz, ${user.email}! Test çözmeye başlayabilirsiniz.`;
+                } else {
+                    // Kullanıcı giriş yapmamışsa
+                    authContainer.style.display = 'flex';
+                    testListesi.style.display = 'none';
+                    document.querySelector('.header p').textContent = 'Giriş yapınız. Kayıt olan her kullanıcı otomatik olarak eklenir.';
+                }
+            });
+        }
+        
+        // Sayfa yüklendiğinde durumu kontrol et
+        checkAuthState();
 
-            if (users[usernameInput] === passwordInput) {
-                // Giriş Başarılı
-                authContainer.style.display = 'none'; // Giriş/Kayıt formlarını gizle
-                testListesi.style.display = 'block'; // Test listesini göster
-                
-                document.querySelector('.header p').textContent = `Hoş geldiniz, ${usernameInput}! Test çözmeye başlayabilirsiniz.`;
-
-            } else {
-                // Giriş Başarısız
-                messageElement.textContent = "Hata: Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyin.";
-                messageElement.style.display = 'block';
-                
-                setTimeout(() => {
-                    messageElement.style.display = 'none';
-                }, 3000);
-            }
+        // 2. Google Giriş İşlemi
+        googleLoginButton.addEventListener('click', function() {
+            
+            loginMessage.style.display = 'none';
+            
+            const provider = new firebase.auth.GoogleAuthProvider();
+            
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    // Giriş başarılı. authStateChanged arayüzü güncelleyecektir.
+                })
+                .catch((error) => {
+                    // Giriş başarısız
+                    loginMessage.textContent = "Hata: Google ile giriş yapılamadı. Lütfen Firebase Console'da Google ayarlarını tamamladığınızdan emin olun.";
+                    loginMessage.style.display = 'block';
+                    // Konsolda detaylı hata gösterimi
+                    console.error("Google Giriş Hatası:", error);
+                });
         });
+
+        // 3. E-posta/Şifre Giriş Formu Gönderimi
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('login_email').value;
+            const password = document.getElementById('login_password').value;
+            
+            loginMessage.style.display = 'none';
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Giriş başarılı.
+                })
+                .catch((error) => {
+                    // Giriş başarısız
+                    loginMessage.textContent = "Hata: Giriş bilgileri yanlış veya kullanıcı bulunamadı.";
+                    loginMessage.style.display = 'block';
+                });
+        });
+
+        // 4. E-posta/Şifre Kayıt Formu Gönderimi
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('reg_email').value;
+            const password = document.getElementById('reg_password').value;
+
+            registerMessage.style.display = 'none';
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Kayıt başarılı. Kullanıcı otomatik olarak giriş yapar.
+                    registerMessage.textContent = "Kayıt başarılı! Otomatik giriş yapıldı. Testlere yönlendiriliyorsunuz...";
+                    registerMessage.style.display = 'block';
+                    
+                    registerForm.reset(); 
+                })
+                // Hata yakalama mekanizması
+                .catch((error) => {
+                    let errorMessage = "Hata: Kayıt başarısız. Lütfen bilgileri kontrol edin.";
+                    if (error.code === 'auth/email-already-in-use') {
+                        errorMessage = "Hata: Bu e-posta adresi zaten kullanılıyor. Lütfen giriş yapmayı deneyin veya farklı bir e-posta kullanın.";
+                    } else if (error.code === 'auth/weak-password') {
+                        errorMessage = "Hata: Şifre çok zayıf. Lütfen en az 6 karakterli bir şifre belirleyin.";
+                    }
+                    
+                    registerMessage.textContent = errorMessage;
+                    registerMessage.style.display = 'block';
+                });
+        });
+        
     </script>
 
 </body>

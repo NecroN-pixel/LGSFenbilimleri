@@ -11,7 +11,7 @@
      crossorigin="anonymous"></script>
 
     <style>
-        /* CSS Kodu */
+        /* CSS Kodu (Sadece Reklam Konteyneri Güncellendi) */
         :root {
             --primary-color: #dc3545;
             --bg-light: #f7f7f7;
@@ -70,17 +70,20 @@
             padding-bottom: 10px;
         }
         
-        /* Yeni: Reklam Kapsayıcı Stili */
+        /* Reklam Konteynerı Stili */
         .ad-container {
             margin: 20px auto;
             text-align: center;
-            /* Mobil için esnek genişlik ayarları */
             width: 100%; 
             max-width: 728px; 
-            overflow: hidden; /* Taşmayı önler */
+            min-height: 100px; /* Reklam alanı yüklenene kadar yer tutması için */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0; /* Reklam alanı belli olsun */
         }
         
-        /* Giriş ve Çıkış Butonları (Aynı Kaldı) */
+        /* Diğer CSS kodları (Kısaltıldı) */
         .form-group { margin-bottom: 25px; text-align: left; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--text-dark); }
         .form-group input { width: 100%; padding: 12px 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; box-sizing: border-box; transition: border-color 0.3s; }
@@ -164,7 +167,7 @@
         
         <div class="ad-container">
             <p style="font-size: 0.8em; color: #888;">* Giriş Öncesi Reklam Alanı *</p>
-        </div>
+            </div>
 
         <div class="auth-box">
             <h3>Acil Giriş</h3>
@@ -181,7 +184,7 @@
             <p style="text-align: center; margin: 20px 0; font-weight: 600; color: #555;">VEYA</p>
 
             <button type="button" class="auth-button google-button" id="google-login-button">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDYuMzY5OTdWMTAuMTg3NUgxNi43MDhDMTEuNjg1IDE0LjQzNzUgMTIuMTg3NSA2LjM2OTk3IDEyIDYuMzY5OTdaIiBmaWxsPSIjRUE0MzM1Ii8+CjxwYXRoIGQ9Ik0xMiAxMy44MTI1QzE2Ljc1IDEzLjgxMjUgMTkuNjI1IDEwLjkzNzUgMTkuNjI1IDcuOTQ3OTdIMTcuMDYyNEMxOC40Mzc1IDkuOTc5NDcgMTYuODczNSAxMy4xMjUgMTIgMTMuMTI1VjEzLjgxMjVaIiBmaWxsPSIjNEI5M0RCIi8+CjxwYXRoIGQ9Ik00LjM3NSA4LjMyMjM2VjExLjgxMjVIMTJWMTIuNUw1LjcwODMzIDguMzIyMzZINC4zNzVaIiBmaWxsPSIjRkFGRjNGIi8+CjxwYXRo IGQ9Ik00LjM3NSA4LjMyMjM2VjExLjgxMjVINy44MTI1VjYuMzk0MzdDNy44MTI1IDYuMzk0MzdINy4xNDU4M0M2LjQ3OTQ3IDYuMzk0MzdgIiBmaWxsPSJOT05FIi8+CjxwYXRo IGQ9Ik0xMiAxOC4wNjI1QzcuMTI1IDE4LjA2MjUgNC41MTgwOSAxNi4wMzU2IDQuMzMxMDkgMTMuODA5VjExLjgxMjVINy40NjIyMUM4LjI0MjgxIDE1LjAxMzIgMTEuNTIzIDE1LjA0MTcgMTIgMTUuMDQxN0wxMiAxOC4wNjI1WiIgZmlsbD0iIzM0QTg1MyIvPgo8cGF0aCBkPSJNMTIuMDQxNyA2LjM2OTk3VjEwLjE4NzVIOC43MDgzM0wxMi4wNDI2IDYuMzk0MzdIMTJWNi4zNjk5N0wxMi4wNDEgNi4zNjk5N1oiIGZpbGw9IiNGQkJDMDQiLz4KPC9zdmc+Cg==" alt="Google logo"/>
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDYuMzY5OTdWMTAuMTg3NUgxNi43MDhDMTEuNjg1IDE0LjQzNzUgMTIuMTg3NSA2LjM2OTk3IDEyIDYuMzY5OTdaIiBmaWllbGw9IiNFQTQzMzUiLz4KPHBhdGggZD0iTTEyIDEzLjgxMjVDOTE2Ljc1IDEzLjgxMjUgMTkuNjI1IDEwLjkzNzUgMTkuNjI1IDcuOTQ3OTdIMTcuMDYyNEMxOC40Mzc1IDkuOTc5NDcgMTYuODczNSAxMy4xMjUgMTIgMTMuMTI1VjEzLjgxMjVaIiBmaWllbGw9IiM0QjkzREIiLz4KPHBhdGggZD0iTTQuMzc1IDguMzIyMzZWMTEuODEyNUgxMlYxMi41TDUuNzA4MzMgOC4zMjIzNkg0LjM3NVoiIGZpbGw9IiNGQUZGM0YiLz4KPHBhdGggZD0iTTQuMzc1IDguMzIyMzZWMT EuODEyNUg3LjgxMjVWMi4zOTQzN0M3LjgxMjUgNi4zOTQzN0g3LjE0NTgzQzYuNDc5NDcgNi4zOTQzN2EiIGZpbGw9Ik5PTkUiLz4KPHBhdGggZD0iTTEyIDE4LjA2MjVDNy4xMjUgMTguMDYyNSA0LjUxODA5IDE2LjAzNTYgNC4zMzEwOSAxMy44MDlWMT EuODEyNUg3LjQ2MjIxQzguMjQyODEgMTUuMDEzMiAxMS41MjMgMTUuMDQxNyAxMiAxNS4wNDE3TDEyIDE4LjA2MjVaIiBmaWllbGw9IiMzNEE4NTMiLz4KPHBhdGggZD0iTTEyLjA0MTcgNi4zNjk5N1YxMC4xODc1SDguNzA4MzNMMTIuMDQyNiA2LjM5NDM3SDEyVjYuMzY5OTdMMTIuMDQxIDYuMzY5OTdaIiBmaWllbGw9IiNGQkJDMDQiLz4KPC9zdmc+Cg==" alt="Google logo"/>
                 Google Hesabı ile Giriş Yap
             </button>
             
@@ -195,7 +198,7 @@
 
         <div class="ad-container">
             <p style="font-size: 0.8em; color: #888;">* Ünite Listesi Üst Reklam Alanı *</p>
-        </div>
+            </div>
 
         <div class="unit-grid">
             
@@ -231,7 +234,7 @@
             
             <div class="ad-container" style="padding: 15px; grid-column: auto;">
                 <p style="font-size: 0.8em; color: #888;">* Üniteler Arası Reklam Alanı *</p>
-            </div>
+                </div>
 
             <div class="unit-card">
                 <div>
@@ -301,6 +304,17 @@
         const authContainer = document.getElementById('auth-container'); 
         const testListesi = document.getElementById('test-listesi');
 
+        // YENİ: Reklamları Yeniden Yükleme Fonksiyonu
+        function loadAds() {
+            // Google AdSense'in global array'i olan adsbygoogle'ı kontrol eder.
+            if (typeof window.adsbygoogle !== 'undefined' && window.adsbygoogle.push) {
+                // Sayfadaki tüm Adsense kodlarını yeniden tarar ve yükler.
+                window.adsbygoogle.push({});
+                console.log("AdSense reklamları manuel olarak yeniden yüklendi.");
+            }
+        }
+
+
         // 5. Acil Giriş Kontrol Fonksiyonu (Sabit Şifre Başarılı Olduğunda Çalışır)
         function setLocalSession(isLoggedIn) {
             if (isLoggedIn) {
@@ -308,11 +322,18 @@
                 testListesi.style.display = 'block';
                 document.querySelector('.header p').textContent = `Hoş geldiniz! Test çözmeye başlayabilirsiniz.`;
                 localStorage.setItem('isLoggedIn', 'true'); 
+                
+                // GİRİŞ BAŞARILI: Reklamları yükle
+                loadAds(); 
+                
             } else {
                 authContainer.style.display = 'block';
                 testListesi.style.display = 'none';
                 document.querySelector('.header p').textContent = 'Acil Giriş Sayfası. Şifrenizi veya Google hesabınızı kullanarak giriş yapın.';
                 localStorage.removeItem('isLoggedIn');
+                
+                // ÇIKIŞ YAPILDI: Eğer varsa giriş öncesi reklamları yükle
+                loadAds(); 
             }
         }
 
@@ -324,6 +345,8 @@
                     testListesi.style.display = 'block';
                     document.querySelector('.header p').textContent = `Hoş geldiniz, ${user.email}! Test çözmeye başlayabilirsiniz.`;
                     localStorage.removeItem('isLoggedIn');
+                    // Firebase Girişi: Reklamları yükle
+                    loadAds(); 
                 } else {
                     const isLocalLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
                     if (isLocalLoggedIn) {
@@ -360,7 +383,7 @@
             
             signInWithPopup(auth, provider)
                 .then((result) => {
-                    // Giriş başarılı. onAuthStateChanged arayüzü güncelleyecektir.
+                    // Giriş başarılı. onAuthStateChanged arayüzü ve reklamları güncelleyecektir.
                 })
                 .catch((error) => {
                     loginMessage.textContent = "Hata: Google ile giriş yapılamadı. Bağlantı veya yetkilendirme sorunlarını kontrol edin.";
@@ -369,7 +392,7 @@
                 });
         });
         
-        // 9. Çıkış Yap İşlemi (Hem Firebase hem de Sabit Şifre oturumunu sonlandırır)
+        // 9. Çıkış Yap İşlemi
         if (logoutButton) {
             logoutButton.addEventListener('click', function() {
                 signOut(auth).then(() => {
